@@ -36,7 +36,6 @@ subscribeUser = async () => {
             userToken: messagingToken,
             isSubscribed: true,
           });
-          this.updateBtn();
         }
       } else {
         // Show permission request.

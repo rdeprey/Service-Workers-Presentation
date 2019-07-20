@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
-      this.pushBtn = document.getElementById('pushBtn');
-
       navigator.serviceWorker.register('./firebase-messaging-sw.js')
         .then(function (registration) {
             firebase.messaging().useServiceWorker(registration);
@@ -13,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Service worker registration failed: ', error.message);
         });
     } else {
-        this.pushBtn.textContent = 'Push not supported.'
+        this.setState({
+            notSupported: true,
+        });
     }
 });

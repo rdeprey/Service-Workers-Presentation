@@ -193,9 +193,9 @@ export default class Presentation extends React.Component {
               { loc: [0, 24], title: "Step 1: Register the Service Worker" },
               { loc: [0, 1], title: "Listen for the page to load" },
               { loc: [1, 2], title: "Check for support", note: 'Here, we`re checking for service worker and push notification support.' },
-              { loc: [4, 5], title: "Register the service worker", note: "Browser will automatically check to see if it's registered already and handle it apropriately." },
-              { loc: [5, 9], title: "Setup Firebase Cloud Messaging" },
-              { loc: [8, 9], title: "Set initial UI state" }
+              { loc: [2, 3], title: "Register the service worker", note: "Browser will automatically check to see if it's registered already and handle it apropriately." },
+              { loc: [4, 7], title: "Setup Firebase Cloud Messaging" },
+              { loc: [6, 7], title: "Set initial UI state" }
             ]}
             style={{ fontSize: '0.7em' }}
         />
@@ -471,9 +471,9 @@ export default class Presentation extends React.Component {
             ranges={[
               { loc: [2, 9], title: "Get permission to send push notifications" },
               { loc: [10, 11], title: "Get messaging token", note: "Get a messaging token from Firebase Cloud Messaging" },
-              { loc: [11, 20], title: "Is this an existing subscriber?", note: "Check to see if the token is already in the subscriber collection in Firebase Firestore database" },
+              { loc: [11, 20], title: "Is this an existing subscriber?", note: "Check to see if the token is already in the subscriber collection in the Firestore database" },
               { loc: [20, 31], title: "Add new subscriber", note: "If device isn't already subscribed, add a new subscription to the database" },
-              { loc: [33, 44], title: "Update UI", note: "Update component state if device is successfully subscribed"}
+              { loc: [33, 39], title: "Update UI", note: "Update component state if device is successfully subscribed"}
             ]}
             style={{ fontSize: '0.7em' }}
         />
@@ -497,7 +497,7 @@ export default class Presentation extends React.Component {
             ranges={[
               { loc: [1, 2], title: "Delete messaging token", note: "Delete the subscriber token for the device from Firebase Cloud Messaging service" },
               { loc: [3, 8], title: "Delete the token from the database" },
-              { loc: [10, 18], title: "Remove from local storage and update UI" },
+              { loc: [10, 17], title: "Remove from local storage and update UI" },
             ]}
             style={{ fontSize: '0.7em' }}
         />
