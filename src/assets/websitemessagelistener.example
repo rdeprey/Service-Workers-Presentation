@@ -1,0 +1,5 @@
+firebase.messaging().onMessage(payload => {
+    this.setState({
+    notificationMessage: payload.notification,
+    });
+});

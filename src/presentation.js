@@ -62,7 +62,7 @@ export default class Presentation extends React.Component {
           </Text>
         </Slide>
         <Slide transition={['fade']} bgColor="tertiary">
-          <Heading size={3} textColor="secondary">
+          <Heading size={3} textColor="primary">
             Topics We'll Cover
           </Heading>
           <List className="list">
@@ -226,20 +226,6 @@ export default class Presentation extends React.Component {
             <small style={{ fontSize: '12px', color: '#ffffff' }}>Gaunt, Matt. (2019, May 29). <a style={{ color: '#ffffff' }} href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Workers: An Introduction</a></small>
           </div>
         </Slide>
-        <CodeSlide
-            transition={[]}
-            lang="js"
-            code={require("!raw-loader!./assets/install.example").default}
-            ranges={[
-              { loc: [0, 11], title: "Step 2: Install" },
-              { loc: [0, 1], title: "Name the cache" },
-              { loc: [1, 2], title: "Add an 'install' event listener" },
-              { loc: [2, 3], title: "Tell browser to wait", note: "Accepts a promise and uses it to know how long installation takes." },
-              { loc: [3, 4], title: "Open and name the cache" },
-              { loc: [4, 5], title: "Add all URLs to the cache", note: "Service worker is only successfully installed if ALL of the files are successfully cached." },
-            ]}
-            style={{ fontSize: '0.7em' }}
-        />
         <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
           <Heading size={3} textColor="secondary" caps>
             Caching Strategies
@@ -331,6 +317,20 @@ export default class Presentation extends React.Component {
             />
           </div>
         </Slide>
+        <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require("!raw-loader!./assets/install.example").default}
+            ranges={[
+              { loc: [0, 11], title: "Step 2: Install" },
+              { loc: [0, 1], title: "Name the cache" },
+              { loc: [1, 2], title: "Add an 'install' event listener" },
+              { loc: [2, 3], title: "Tell browser to wait", note: "Accepts a promise and uses it to know how long installation takes." },
+              { loc: [3, 4], title: "Open and name the cache" },
+              { loc: [4, 5], title: "Add all URLs to the cache", note: "Service worker is only successfully installed if ALL of the files are successfully cached." },
+            ]}
+            style={{ fontSize: '0.7em' }}
+        />
         <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
           <Heading size={3} textColor="secondary" caps>
             Configuring a Service Worker
@@ -385,24 +385,164 @@ export default class Presentation extends React.Component {
             Push Notifications
           </Heading>
           <Text margin="10px 0 0" textColor="secondary" size={1}>
-            
+            1. Handle Subscribes
           </Text>
           <div style={{ float: 'left', width: '60%' }}>
             <div className="spacedText">
               <Text margin="10px 0 0" textColor="secondary" size={1}>
-                Service worker can be in one of two states:
+                To get push notifications, the user has to subscribe. This is per device.
               </Text>
-              <List textColor="secondary" className="list__expanded">
-                <ListItem><strong>In fetch/message state,</strong> it handles fetch and message events that occur when a network request 
-                or message is made from your page.</ListItem>
-                <ListItem><strong>If terminated,</strong> it's removed to save memory.</ListItem>
-              </List>
+              <Text margin="10px 0 0" textColor="secondary" size={1}>
+                Firebase Cloud Messaging for subscriber tokens and sending notifications
+              </Text>
+              <Text margin="10px 0 0" textColor="secondary" size={1}>
+                Firebase Firestore database for storing subscriber tokens and website data.
+              </Text>
             </div>
           </div>
-          <div style={{ float: 'right', width: '40%' }}>
-            <Image src="img/sw-lifecycle-activated.jpg" width="450" />
-            <small style={{ fontSize: '12px', color: '#ffffff' }}>Gaunt, Matt. (2019, May 29). <a style={{ color: '#ffffff' }} href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Workers: An Introduction</a></small>
+          <div style={{ float: 'right', width: '40%', paddingTop: '40px' }}>
+            <Image src="img/subscribecapture.gif" width="450" style={{ border: '1px solid #ccc' }} />
           </div>
+        </Slide>
+        <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+          <Heading size={3} textColor="secondary" caps>
+            Push Notifications
+          </Heading>
+          <Text margin="10px 0 0" textColor="secondary" size={1}>
+            Subscriber Workflow
+          </Text>
+          <Image src="img/Subscribe-workflow.png" />
+        </Slide>
+        <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require("!raw-loader!./assets/subscribe.example").default}
+            ranges={[
+              { loc: [2, 9], title: "Get permission to send push notifications" },
+              { loc: [10, 11], title: "Get messaging token", note: "Get a messaging token from Firebase Cloud Messaging" },
+              { loc: [11, 20], title: "Is this an existing subscriber?", note: "Check to see if the token is already in the subscriber collection in Firebase Firestore database" },
+              { loc: [20, 31], title: "Add new subscriber", note: "If device isn't already subscribed, add a new subscription to the database" },
+              { loc: [33, 44], title: "Update UI", note: "Update component state if device is successfully subscribed"}
+            ]}
+            style={{ fontSize: '0.7em' }}
+        />
+        <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+          <Heading size={3} textColor="secondary" caps>
+            Push Notifications
+          </Heading>
+          <Text margin="10px 0 0" textColor="secondary" size={1}>
+            2. Handle Unsubscribes
+          </Text>
+          <br />
+          <Text margin="10px 0 0" textColor="secondary" size={1}>
+              Users need to be able to opt out of subscriptions at any point
+            </Text>
+            <Image src="img/Unsubscribe.png" />
+        </Slide>
+        <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require("!raw-loader!./assets/unsubscribe.example").default}
+            ranges={[
+              { loc: [1, 2], title: "Delete messaging token", note: "Delete the subscriber token for the device from Firebase Cloud Messaging service" },
+              { loc: [3, 8], title: "Delete the token from the database" },
+              { loc: [10, 18], title: "Remove from local storage and update UI" },
+            ]}
+            style={{ fontSize: '0.7em' }}
+        />
+        <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+          <Heading size={3} textColor="secondary" caps>
+            Push Notifications
+          </Heading>
+          <Text margin="10px 0 0" textColor="secondary" size={1}>
+            3. Displaying Notifications
+          </Text>
+          <div style={{ float: 'left', width: '60%' }}>
+            <div className="spacedText">
+              <Text margin="10px 0 0" textColor="secondary" size={1}>
+                Notifications are handled differently depending on whether the user is actively viewing the site when the notification is received
+              </Text>
+              <Text margin="10px 0 0" textColor="secondary" size={1}>
+                The <strong>service worker</strong> handles push notifications received when the website is not being actively viewed
+              </Text>
+              <Text margin="10px 0 0" textColor="secondary" size={1}>
+                The <strong>website</strong> handles push notifications received when it's actively viewed
+              </Text>
+            </div>
+          </div>
+          <div style={{ float: 'right', width: '40%', paddingTop: '40px' }}>
+            <Image src="img/subscribecapture.gif" width="450" style={{ border: '1px solid #ccc' }} />
+          </div>
+        </Slide>
+        <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+          <Heading size={3} textColor="secondary" caps>
+            Push Notifications
+          </Heading>
+          <Text margin="10px 0 0" textColor="secondary" size={1}>
+            3. Notifying Users When New Books Are Added
+          </Text>
+          <Image src="img/Notification-workflow.png" />
+        </Slide>
+        <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require("!raw-loader!./assets/cloudfunction.example").default}
+            ranges={[
+              { loc: [5, 12], title: "Listen for changes", note: "When there are write events, get the new book title from the URL. Ignore deletes." },
+              { loc: [13, 14], title: "Connect to the Firestore database" },
+              { loc: [15, 22], title: "Get subscriber tokens" },
+              { loc: [23, 38], title: "Create the notification payload" },
+              { loc: [39, 68], title: "Send the notification to each subscriber" },
+            ]}
+            style={{ fontSize: '0.7em' }}
+        />
+        <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+          <Heading size={3} textColor="secondary" caps>
+            Push Notifications
+          </Heading>
+          <Text margin="10px 0 0" textColor="secondary" size={1}>
+            3a. Handle Notifications Through Service Worker
+          </Text>
+          <div className="spacedText">
+            <Text margin="10px 0 0" textColor="secondary" size={1}>
+              Service worker listens in the background for notifications from Firebase Cloud Messaging
+            </Text>
+          </div>
+        </Slide>
+        <CodeSlide
+          transition={[]}
+          lang="js"
+          code={require("!raw-loader!./assets/swmessagelistener.example").default}
+          ranges={[
+            { loc: [3, 5], title: "Import Firebase scripts" },
+            { loc: [8, 12], title: "Initialize Firebase app in service worker" },
+            { loc: [12, 19], title: "Handle notifications in the background" },
+          ]}
+          style={{ fontSize: '0.7em' }}
+      />
+        <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+          <Heading size={3} textColor="secondary" caps>
+            Push Notifications
+          </Heading>
+          <Text margin="10px 0 0" textColor="secondary" size={1}>
+            3b. Handle Notifications Through Website
+          </Text>
+          <div className="spacedText">
+            <Text margin="10px 0 0" textColor="secondary" size={1}>
+              Website listens for notifications from Firebase Cloud Messaging while site is actively open
+              (i.e., it's active in the window or the active tab)
+            </Text>
+          </div>
+          <CodePane
+            lang="js"
+            source={require("!raw-loader!./assets/websitemessagelistener.example").default}
+            className="code-pane"
+          />
+        </Slide>
+        <Slide transition={['fade']} bgColor="tertiary">
+          <Heading size={1} textColor="primary" caps>
+            Thank You!
+          </Heading>
         </Slide>
       </Deck>
     );

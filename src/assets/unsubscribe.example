@@ -1,0 +1,19 @@
+  unsubscribeUser = async () => {
+    const deletedStatus = await firebase.messaging().deleteToken(this.state.userToken)
+      .then(async () => {
+        return await firebase.firestore().collection('device_ids').doc(this.state.userToken).delete().then(() => {
+          console.log('Successfully deleted ' + this.state.userToken);
+          return Promise.resolve({success: true});
+        });
+      })
+      .catch(error => console.log('error unsubscribing: ', error));
+
+      if (deletedStatus) {
+        this.setState({
+          isSubscribed: false,
+          userToken: null,
+        });
+        localStorage.removeItem('pushNotificationsKey');
+        this.updateBtn();
+      }
+  };
