@@ -67,7 +67,7 @@ export default class Presentation extends React.Component {
           </Heading>
           <List className="list">
             <ListItem>What is a service worker?</ListItem>
-            <ListItem>How they work</ListItem>
+            <ListItem>How do they work?</ListItem>
             <ListItem>Demo
               <List>
                 <ListItem>Configuring a Service Worker</ListItem>
@@ -83,7 +83,7 @@ export default class Presentation extends React.Component {
           </Heading>
           <Text margin="10px 0 0" textColor="secondary" size={1}>
             A script that your web app runs in the background, separate from a web page, that makes it possible to offer features
-            that don't require a web page or user interaction. 
+            that don't require user interaction. 
           </Text>
           <Table>
             <TableBody>
@@ -138,7 +138,7 @@ export default class Presentation extends React.Component {
             </Text>
             <br />
             <Text margin="10px 0 0" textColor="primary" size={1}>
-              Has to be installed, which is done through Javascript
+              Has to be installed through Javascript on your website
             </Text>
           </div>
           <div style={{ float: 'right', width: '50%' }}>
@@ -182,7 +182,7 @@ export default class Presentation extends React.Component {
           </div>
           <div style={{ float: 'right', width: '40%' }}>
             <Image src="img/sw-lifecycle-installing.jpg" width="450" />
-            <small style={{ fontSize: '12px', color: '#ffffff' }}>Gaunt, Matt. (2019, May 29). <a style={{ color: '#ffffff' }} href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Workers: An Introduction</a></small>
+            <small style={{ fontSize: '12px' }}>Gaunt, Matt. (2019, May 29). <a href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Workers: An Introduction</a></small>
           </div>
         </Slide>
         <CodeSlide
@@ -190,16 +190,35 @@ export default class Presentation extends React.Component {
             lang="js"
             code={require("!raw-loader!./assets/register.example").default}
             ranges={[
-              { loc: [0, 11], title: "Step 1: Register" },
-              { loc: [0, 1], title: "Check for support", note: 'Here, we`re checking for service worker and push notification support.' },
-              { loc: [1, 2], title: "Listen for the page to load" },
-              { loc: [2, 3], title: "Register the service worker", note: "Browser will automatically check to see if it's registered already and handle it apropriately." },
-              { loc: [3, 10], title: "Handle promise success/fail" },
+              { loc: [0, 24], title: "Step 1: Register the Service Worker" },
+              { loc: [0, 1], title: "Listen for the page to load" },
+              { loc: [1, 2], title: "Check for support", note: 'Here, we`re checking for service worker and push notification support.' },
+              { loc: [4, 5], title: "Register the service worker", note: "Browser will automatically check to see if it's registered already and handle it apropriately." },
+              { loc: [5, 9], title: "Setup Firebase Cloud Messaging" },
+              { loc: [8, 9], title: "Set initial UI state" }
             ]}
             style={{ fontSize: '0.7em' }}
         />
         <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
-          ADD SLIDE SHOWING HOW TO CHECK WHETHER THE SW INSTALLED IN CHROME DEV TOOLS
+          <Heading size={3} textColor="secondary" caps>
+            Configuring a Service Worker
+          </Heading>
+          <Text margin="10px 0 0" textColor="secondary" size={1}>
+            Step 1: Register the Service Worker
+          </Text>
+          <div style={{ float: 'left', width: '40%' }}>
+            <div className="spacedText">
+            <Text margin="10px 0 0" textColor="secondary" size={1}>
+              Shown in Chrome Dev Tools under the Application tab
+            </Text>
+            <Text margin="10px 0 0" textColor="secondary" size={1}>
+              Status will have a green dot if the service worker was successfully installed
+            </Text>
+            </div>
+          </div>
+          <div style={{ float: 'right', width: '57%', paddingTop: '40px' }}>
+            <Image src="img/sw-registered-chromedevtools.jpg" />
+          </div>
         </Slide>
         <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
           <Heading size={3} textColor="secondary" caps>
@@ -223,15 +242,39 @@ export default class Presentation extends React.Component {
           </div>
           <div style={{ float: 'right', width: '40%' }}>
             <Image src="img/sw-lifecycle-installing.jpg" width="450" />
-            <small style={{ fontSize: '12px', color: '#ffffff' }}>Gaunt, Matt. (2019, May 29). <a style={{ color: '#ffffff' }} href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Workers: An Introduction</a></small>
+            <small style={{ fontSize: '12px' }}>Gaunt, Matt. (2019, May 29). <a href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Workers: An Introduction</a></small>
           </div>
+        </Slide>
+        <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require("!raw-loader!./assets/install.example").default}
+            ranges={[
+              { loc: [0, 37], title: "Step 2: Install the Service Worker" },
+              { loc: [0, 1], title: "Name the cache" },
+              { loc: [1, 8], title: "List the files to cache", note: "You can't use file paths here like /js/*"},
+              { loc: [9, 10], title: "Add an 'install' event listener" },
+              { loc: [10, 11], title: "Tell browser to wait", note: "Accepts a promise and uses it to know how long installation takes." },
+              { loc: [11, 12], title: "Open and name the cache" },
+              { loc: [13, 14], title: "Add all URLs to the cache", note: "Service worker is only successfully installed if ALL of the files are successfully cached." },
+            ]}
+            style={{ fontSize: '0.7em' }}
+        />
+        <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+          <Heading size={3} textColor="secondary" caps>
+            Configuring a Service Worker
+          </Heading>
+          <Text margin="10px 0 0" textColor="secondary" size={1}>
+            The Chrome Dev Tools Application tab shows the cached resources
+          </Text>
+          <Image src="img/cached-resources-chromedevtools.jpg" />
         </Slide>
         <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
           <Heading size={3} textColor="secondary" caps>
             Caching Strategies
           </Heading>
           <Text margin="10px 0 0" textColor="secondary" size={1}>
-            There are multiple, but the main three are:
+            There are many, but we'll just look at a few:
           </Text>
           <List textColor="secondary" className="list">
             <ListItem>Cache Only</ListItem>
@@ -317,17 +360,28 @@ export default class Presentation extends React.Component {
             />
           </div>
         </Slide>
+        <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+          <Heading size={3} textColor="secondary" caps>
+            Caching Strategies
+          </Heading>
+          <Text margin="10px 0 0" textColor="secondary" size={1}>
+            That being said, the demo app uses the cache first, fallback to network strategy to use cached resources 
+            where available, but request them from the network as needed.
+          </Text>
+        </Slide>
         <CodeSlide
             transition={[]}
             lang="js"
-            code={require("!raw-loader!./assets/install.example").default}
+            code={require("!raw-loader!./assets/cachefetch.example").default}
             ranges={[
-              { loc: [0, 11], title: "Step 2: Install" },
-              { loc: [0, 1], title: "Name the cache" },
-              { loc: [1, 2], title: "Add an 'install' event listener" },
-              { loc: [2, 3], title: "Tell browser to wait", note: "Accepts a promise and uses it to know how long installation takes." },
-              { loc: [3, 4], title: "Open and name the cache" },
-              { loc: [4, 5], title: "Add all URLs to the cache", note: "Service worker is only successfully installed if ALL of the files are successfully cached." },
+              { loc: [0, 19], title: "Cache First, Fallback to Network" },
+              { loc: [0, 1], title: "Add a 'fetch' event listener" },
+              { loc: [1, 2], title: "Provide our own response to the fetch event" },
+              { loc: [2, 3], title: "Check cache for requested resource" },
+              { loc: [3, 7], title: "Handle success", note: "If the resource is found in the cache, return it." },
+              { loc: [8, 9], title: "Fallback to network", note: "Fetch the resource over the network" },
+              { loc: [9, 14], title: "Cache the resource", note: "Open the cache and add the resource just requested so it's cached for future requests and then return it." },
+              { loc: [15, 16], title: "Handled non-cached requests", note: "If user is offline and attempts to access a new page, return custom error message."},
             ]}
             style={{ fontSize: '0.7em' }}
         />
@@ -340,9 +394,6 @@ export default class Presentation extends React.Component {
           </Text>
           <div style={{ float: 'left', width: '60%' }}>
             <div className="spacedText">
-              <Text margin="10px 0 0" textColor="secondary" size={1}>
-                Good place to handle management of old caches
-              </Text>
               <Text>
                 Once the <Code>activate</Code> event fires, you have to reload the page before it will be controlled by the service worker
               </Text>
@@ -353,7 +404,7 @@ export default class Presentation extends React.Component {
           </div>
           <div style={{ float: 'right', width: '40%' }}>
             <Image src="img/sw-lifecycle-activated.jpg" width="450" />
-            <small style={{ fontSize: '12px', color: '#ffffff' }}>Gaunt, Matt. (2019, May 29). <a style={{ color: '#ffffff' }} href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Workers: An Introduction</a></small>
+            <small style={{ fontSize: '12px' }}>Gaunt, Matt. (2019, May 29). <a href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Workers: An Introduction</a></small>
           </div>
         </Slide>
         <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
@@ -376,8 +427,8 @@ export default class Presentation extends React.Component {
             </div>
           </div>
           <div style={{ float: 'right', width: '40%' }}>
-            <Image src="img/sw-lifecycle-activated.jpg" width="450" />
-            <small style={{ fontSize: '12px', color: '#ffffff' }}>Gaunt, Matt. (2019, May 29). <a style={{ color: '#ffffff' }} href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Workers: An Introduction</a></small>
+            <Image src="img/sw-lifecycle-action.jpg" width="450" />
+            <small style={{ fontSize: '12px' }}>Gaunt, Matt. (2019, May 29). <a href="https://developers.google.com/web/fundamentals/primers/service-workers/">Service Workers: An Introduction</a></small>
           </div>
         </Slide>
         <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
@@ -491,8 +542,8 @@ export default class Presentation extends React.Component {
               { loc: [5, 12], title: "Listen for changes", note: "When there are write events, get the new book title from the URL. Ignore deletes." },
               { loc: [13, 14], title: "Connect to the Firestore database" },
               { loc: [15, 22], title: "Get subscriber tokens" },
-              { loc: [23, 38], title: "Create the notification payload" },
-              { loc: [39, 68], title: "Send the notification to each subscriber" },
+              { loc: [23, 30], title: "Create the notification payload" },
+              { loc: [31, 63], title: "Send the notification to each subscriber" },
             ]}
             style={{ fontSize: '0.7em' }}
         />

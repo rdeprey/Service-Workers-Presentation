@@ -1,11 +1,18 @@
-if ('serviceWorker' in navigator && 'PushManager' in window) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js').then(function(registration) {
-        // Registration was successful
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      }, function(err) {
-        // registration failed :(
-        console.log('ServiceWorker registration failed: ', err);
-      });
-    });
-  }
+document.addEventListener('DOMContentLoaded', () => {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      this.pushBtn = document.getElementById('pushBtn');
+
+      navigator.serviceWorker.register('./firebase-messaging-sw.js')
+        .then(function (registration) {
+            firebase.messaging().useServiceWorker(registration);
+            firebase.messaging().usePublicVapidKey(KEY);
+            that.initializePush();
+            console.log('Service worker is registered!');
+        })
+        .catch(function (error) {
+            console.log('Service worker registration failed: ', error.message);
+        });
+    } else {
+        this.pushBtn.textContent = 'Push not supported.'
+    }
+});
