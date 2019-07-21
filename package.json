@@ -5,8 +5,10 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-emoji-render": "^0.6.0",
     "spectacle-code-slide": "^0.5.2",
-    "spectacle-scripts": "2.4.0"
+    "spectacle-scripts": "2.4.0",
+    "video-react": "^0.14.0"
   },
   "scripts": {
     "start": "react-scripts start",

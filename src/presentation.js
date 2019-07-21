@@ -19,12 +19,15 @@ import {
   CodePane,
   Code
 } from 'spectacle';
+import { Player } from 'video-react';
 
 // Import Spectacle Code Slide
 import CodeSlide from 'spectacle-code-slide';
 
 // Import theme
 import createTheme from 'spectacle/lib/themes/default';
+import "../node_modules/video-react/dist/video-react.css";
+import Emoji from 'react-emoji-render';
 
 // Require CSS
 require('normalize.css');
@@ -388,6 +391,28 @@ export default class Presentation extends React.Component {
         />
         <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
           <Heading size={3} textColor="secondary" caps>
+            Let's Take This Offline
+          </Heading>
+          <div style={{ float: 'left', width: '47%' }}>
+            <div className="spacedText">
+            <Text margin="10px 0 0" textColor="secondary" size={1}>
+              By caching the resources needed for your website, you can provide an offline experience.
+            </Text>
+            <Text margin="10px 0 0" textColor="secondary" size={1}>
+              This can be hard for things like database queries, but Firestore has an offline caching option. <Emoji text="🎉" />
+            </Text>
+            </div>
+          </div>
+          <div style={{ float: 'right', width: '47%', paddingTop: '40px' }}>
+            <Player
+              playsInline
+              autoPlay={true}
+              src="videos/offline-video.webm"
+            />
+          </div>
+        </Slide>
+        <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+          <Heading size={3} textColor="secondary" caps>
             Configuring a Service Worker
           </Heading>
           <Text margin="10px 0 0" textColor="secondary" size={1}>
@@ -456,7 +481,12 @@ export default class Presentation extends React.Component {
             </div>
           </div>
           <div style={{ float: 'right', width: '40%', paddingTop: '40px' }}>
-            <Image src="img/subscribecapture.gif" width="450" style={{ border: '1px solid #ccc' }} />
+            <Player
+                playsInline
+                autoPlay={true}
+                src="videos/subscribe.webm"
+                style={{ width: '80%' }}
+              />
           </div>
         </Slide>
         <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
@@ -512,7 +542,7 @@ export default class Presentation extends React.Component {
           <Text margin="10px 0 0" textColor="secondary" size={1}>
             3. Displaying Notifications
           </Text>
-          <div style={{ float: 'left', width: '60%' }}>
+          <div style={{ float: 'left', width: '47%' }}>
             <div className="spacedText">
               <Text margin="10px 0 0" textColor="secondary" size={1}>
                 Notifications are handled differently depending on whether the user is actively viewing the site when the notification is received
@@ -525,8 +555,12 @@ export default class Presentation extends React.Component {
               </Text>
             </div>
           </div>
-          <div style={{ float: 'right', width: '40%', paddingTop: '40px' }}>
-            <Image src="img/subscribecapture.gif" width="450" style={{ border: '1px solid #ccc' }} />
+          <div style={{ float: 'right', width: '47%', paddingTop: '40px' }}>
+            <Player
+              playsInline
+              autoPlay={true}
+              src="videos/onpage-notification.webm"
+            />
           </div>
         </Slide>
         <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
@@ -558,10 +592,19 @@ export default class Presentation extends React.Component {
           <Text margin="10px 0 0" textColor="secondary" size={1}>
             3a. Handle Notifications Through Service Worker
           </Text>
-          <div className="spacedText">
-            <Text margin="10px 0 0" textColor="secondary" size={1}>
-              Service worker listens in the background for notifications from Firebase Cloud Messaging
-            </Text>
+          <div style={{ float: 'left', width: '47%' }}>
+            <div className="spacedText">
+              <Text margin="10px 0 0" textColor="secondary" size={1}>
+                Service worker listens in the background for notifications from Firebase Cloud Messaging
+              </Text>
+            </div>
+          </div>
+          <div style={{ float: 'right', width: '47%', paddingTop: '40px' }}>
+            <Player
+              playsInline
+              autoPlay={true}
+              src="videos/background-notification.webm"
+            />
           </div>
         </Slide>
         <CodeSlide
