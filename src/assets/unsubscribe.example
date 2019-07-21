@@ -1,18 +1,16 @@
-  unsubscribeUser = async () => {
-    const deletedStatus = await firebase.messaging().deleteToken(this.state.userToken)
-      .then(async () => {
-        return await firebase.firestore().collection('device_ids').doc(this.state.userToken).delete().then(() => {
-          console.log('Successfully deleted ' + this.state.userToken);
-          return Promise.resolve({success: true});
-        });
-      })
-      .catch(error => console.log('error unsubscribing: ', error));
+const unsubscribeUser = async () => {
+  const deletedStatus = await firebase.messaging().deleteToken(userToken)
+    .then(async () => {
+      return await firebase.firestore().collection('device_ids').doc(userToken).delete().then(() => {
+        console.log('Successfully deleted ' + userToken);
+        return Promise.resolve({success: true});
+      });
+    })
+    .catch(error => console.log('error unsubscribing: ', error));
 
-      if (deletedStatus) {
-        this.setState({
-          isSubscribed: false,
-          userToken: null,
-        });
-        localStorage.removeItem('pushNotificationsKey');
-      }
-  };
+    if (deletedStatus) {
+      setIsSubscribed(false);
+      setUserToken(null);
+      localStorage.removeItem('pushNotificationsKey');
+    }
+};
