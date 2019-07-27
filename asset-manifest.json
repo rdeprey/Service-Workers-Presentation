@@ -1,0 +1,15 @@
+{
+  "main.css": "/Service-Workers-Presentation/static/css/main.ba159a2d.chunk.css",
+  "main.js": "/Service-Workers-Presentation/static/js/main.1ab07ee9.chunk.js",
+  "main.js.map": "/Service-Workers-Presentation/static/js/main.1ab07ee9.chunk.js.map",
+  "static/css/1.1642938c.chunk.css": "/Service-Workers-Presentation/static/css/1.1642938c.chunk.css",
+  "static/js/1.cff928c4.chunk.js": "/Service-Workers-Presentation/static/js/1.cff928c4.chunk.js",
+  "static/js/1.cff928c4.chunk.js.map": "/Service-Workers-Presentation/static/js/1.cff928c4.chunk.js.map",
+  "runtime~main.js": "/Service-Workers-Presentation/static/js/runtime~main.d850c44f.js",
+  "runtime~main.js.map": "/Service-Workers-Presentation/static/js/runtime~main.d850c44f.js.map",
+  "static/css/main.ba159a2d.chunk.css.map": "/Service-Workers-Presentation/static/css/main.ba159a2d.chunk.css.map",
+  "static/css/1.1642938c.chunk.css.map": "/Service-Workers-Presentation/static/css/1.1642938c.chunk.css.map",
+  "index.html": "/Service-Workers-Presentation/index.html",
+  "precache-manifest.70cac3dfc99e019bfafa38c200ed0eba.js": "/Service-Workers-Presentation/precache-manifest.70cac3dfc99e019bfafa38c200ed0eba.js",
+  "service-worker.js": "/Service-Workers-Presentation/service-worker.js"
+}
